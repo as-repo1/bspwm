@@ -33,7 +33,7 @@ width = 100%
 height = 27
 ;offset-x = 1%
 ;offset-y = 1%
-radius = 9.0
+radius = 12.0
 fixed-center = false
 
 background = ${colors.background}
@@ -52,15 +52,15 @@ module-margin-left = 1
 module-margin-right = 2
 
 font-0 = fixed:pixelsize=9;1
-font-1 = unifont:fontformat=truetype:size=9:antialias=false;0
-font-2 = siji:pixelsize=9;1
-font-3 = Font Awesome 5 Free:pixelsize=9;2
-Font-4 = Font Awesome 5 Free Solid:pixelsize=9;2
-Font-5 = Font Awesome 5 Brands:pixelsize=9;2
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-2 = siji:pixelsize=10;1
+font-3 = Font Awesome 5 Free:pixelsize=12;2
+Font-4 = Font Awesome 5 Free Solid:pixelsize=12;2
+Font-5 = Font Awesome 5 Brands:pixelsize=12;2
 
 modules-left = bspwm
-modules-center = xwindow
-modules-right = filesystem xbacklight pulseaudio memory cpu wlan eth temperature date powermenu
+modules-center = xwindow pacman-updates
+modules-right = filesystem xbacklight pulseaudio memory cpu wlan0 eth battery temperature date powermenu
 
 separator = |
 
@@ -108,7 +108,7 @@ interval = 25
 
 mount-0 = /
 
-label-mounted =  %free%
+label-mounted =   %free%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -132,7 +132,19 @@ label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
 ; Separator in between workspaces
-; label-separator = |
+label-separator = "|"
+
+[module/pacman-updates]
+type = custom/script
+exec = checkupdates | wc -l
+interval = 1000
+label = %output%
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix = " "
+format-prefix-foreground = #ffbb00
+# format-prefix-background = #ffbb00
+
 
 [module/i3]
 type = internal/i3
@@ -148,7 +160,10 @@ label-mode-foreground = #000
 label-mode-background = ${colors.primary}
 
 ; focused = Active workspace on focused monitor
-label-focused = %index%
+
+
+
+label-focused = %icon%
 label-focused-background = ${colors.background-alt}
 label-focused-underline= ${colors.primary}
 label-focused-padding = 2
@@ -189,10 +204,10 @@ label-song-ellipsis = true
 type = internal/xbacklight
 
 format = <label> <bar>
-label = 
+#label = BL  
 
 bar-width = 10
-bar-indicator = |
+bar-indicator ="  "
 bar-indicator-foreground = #fff
 bar-indicator-font = 2
 bar-fill = ─
@@ -210,7 +225,8 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = " "
+format-prefix = " "
+
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #f90000
 label = %percentage:2%%
@@ -218,7 +234,7 @@ label = %percentage:2%%
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #4bffdc
 label = %percentage_used%%
@@ -251,7 +267,7 @@ interface = vethf399389
 interval = 3.0
 
 format-connected-underline = #55aa55
-format-connected-prefix = " "
+format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
 
@@ -266,7 +282,7 @@ type = internal/date
 interval = 1
 
 date =
-date-alt = " %Y-%m-%d"
+date-alt = " %d/%m/%Y "
 
 time = %H:%M
 time-alt = %H:%M:%S
@@ -281,7 +297,7 @@ label = %date% %time%
 type = internal/pulseaudio
 
 format-volume = <label-volume> <bar-volume>
-label-volume =  %percentage%%
+label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
 
 label-muted = 🔇 muted
@@ -296,7 +312,7 @@ bar-volume-foreground-4 = #55aa55
 bar-volume-foreground-5 = #f5a70a
 bar-volume-foreground-6 = #ff5555
 bar-volume-gradient = false
-bar-volume-indicator = |
+bar-volume-indicator = "  "  
 bar-volume-indicator-font = 2
 bar-volume-fill = ─
 bar-volume-fill-font = 2
@@ -308,7 +324,7 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 type = internal/alsa
 
 format-volume = <label-volume> <bar-volume>
-label-volume = " "
+label-volume = VOL
 label-volume-foreground = ${root.foreground}
 
 format-muted-prefix = " "
@@ -391,7 +407,7 @@ expand-right = true
 
 format-spacing = 1
 
-label-open = 
+label-open = " "
 label-open-foreground = ${colors.secondary}
 label-close =  cancel
 label-close-foreground = ${colors.secondary}
@@ -399,9 +415,9 @@ label-separator = |
 label-separator-foreground = ${colors.foreground-alt}
 
 menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
+menu-0-0-exec = systemctl reboot
 menu-0-1 = power off
-menu-0-1-exec = menu-open-2
+menu-0-1-exec = systemctl poweroff
 
 menu-1-0 = cancel
 menu-1-0-exec = menu-open-0
@@ -422,7 +438,7 @@ screenchange-reload = true
 ;pseudo-transparency = false
 
 [global/wm]
-margin-top = 2
-margin-bottom = 2
+margin-top = 5
+margin-bottom = 5
 
 ; vim:ft=dosini
