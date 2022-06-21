@@ -1,4 +1,4 @@
-# bspwm
+# this is my bspwm config (all the things)
 
    *IMPORTANT_LINKS
 
