@@ -1,0 +1,16 @@
+set default-fg "#D9E0EE"
+set default-bg "#1E1E2E"
+set statusbar-fg "#D9E0EE"
+set statusbar-bg "#1E1E2E"
+
+set recolor "true"
+set recolor-lightcolor "#1E1E2E"
+set recolor-darkcolor "#D9E0EE"
+
+set selection-clipboard clipboard
+
+map r reload
+map i recolor
+map p print
+map d toggle_page_mode
+map R rotate
